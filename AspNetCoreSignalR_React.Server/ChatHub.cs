@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 
 namespace AspNetCoreSignalR_React.Server
 {
@@ -6,7 +8,12 @@ namespace AspNetCoreSignalR_React.Server
     {
         public void SendToAll(string name, string message)
         {
-            Clients.All.InvokeAsync("sendToAll", name, message);
+			Clients.All.SendAsync("sendToAll", name, message);
         }
-    }
+
+		public override Task OnConnectedAsync()
+		{
+			return base.OnConnectedAsync();
+		}
+	}
 }

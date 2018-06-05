@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HubConnection } from '@aspnet/signalr-client';
+import * as SignalR from '@aspnet/signalr';
 
 class Chat extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class Chat extends Component {
   componentDidMount = () => {
     const nick = window.prompt('Your name:', 'John');
 
-    const hubConnection = new HubConnection('http://localhost:5000/chat');
+    const hubConnection = new SignalR.HubConnectionBuilder().withUrl("http://localhost:5000/chat").configureLogging(SignalR.LogLevel.Information).build();
 
     this.setState({ hubConnection, nick }, () => {
       this.state.hubConnection
